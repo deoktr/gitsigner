@@ -20,6 +20,7 @@ sha256sum -c gitsigner-x86_64-unknown-linux-gnu.sha256
 tar -xzf gitsigner-x86_64-unknown-linux-gnu.tar.gz
 sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 gitsigner --version
+rm gitsigner gitsigner-x86_64-unknown-linux-gnu.sha256 gitsigner-x86_64-unknown-linux-gnu.tar.gz
 ```
 
 Linux aarch64:
@@ -31,6 +32,7 @@ sha256sum -c gitsigner-aarch64-unknown-linux-gnu.sha256
 tar -xzf gitsigner-aarch64-unknown-linux-gnu.tar.gz
 sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 gitsigner --version
+rm gitsigner gitsigner-aarch64-unknown-linux-gnu.sha256 gitsigner-aarch64-unknown-linux-gnu.tar.gz
 ```
 
 </details>
@@ -47,6 +49,7 @@ shasum -a 256 -c gitsigner-aarch64-apple-darwin.sha256
 tar -xzf gitsigner-aarch64-apple-darwin.tar.gz
 sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 gitsigner --version
+rm gitsigner gitsigner-aarch64-apple-darwin.sha256 gitsigner-aarch64-apple-darwin.tar.gz
 ```
 
 macOS Intel (x86_64):
@@ -58,6 +61,7 @@ shasum -a 256 -c gitsigner-x86_64-apple-darwin.sha256
 tar -xzf gitsigner-x86_64-apple-darwin.tar.gz
 sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 gitsigner --version
+rm gitsigner gitsigner-x86_64-apple-darwin.sha256 gitsigner-x86_64-apple-darwin.tar.gz
 ```
 
 </details>
@@ -171,10 +175,10 @@ jobs:
       - name: Install gitsigner
         run: |
           BASE=https://github.com/deoktr/gitsigner/releases/latest/download
-          curl -fsSL -o gitsigner.tar.gz "$BASE/gitsigner-x86_64-unknown-linux-gnu.tar.gz"
-          curl -fsSL -o gitsigner.tar.gz.sha256 "$BASE/gitsigner-x86_64-unknown-linux-gnu.tar.gz.sha256"
-          sha256sum -c gitsigner.tar.gz.sha256
-          tar -xzf gitsigner.tar.gz
+          curl -fsSL -O "$BASE/gitsigner-x86_64-unknown-linux-gnu.tar.gz"
+          curl -fsSL -O "$BASE/gitsigner-x86_64-unknown-linux-gnu.sha256"
+          sha256sum -c gitsigner-x86_64-unknown-linux-gnu.sha256
+          tar -xzf gitsigner-x86_64-unknown-linux-gnu.tar.gz
           sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 
       - name: Verify signatures
