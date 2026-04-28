@@ -1,0 +1,38 @@
+name: Signed-commits gate
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Default checkout is shallow, deepen so gitsigner can see history.
+          fetch-depth: 0
+
+      - name: Install gitsigner
+        run: |
+          BASE=https://github.com/deoktr/gitsigner/releases/latest/download
+          curl -fsSL -o gitsigner.tar.gz "$BASE/gitsigner-x86_64-unknown-linux-gnu.tar.gz"
+          curl -fsSL -o gitsigner.tar.gz.sha256 "$BASE/gitsigner-x86_64-unknown-linux-gnu.tar.gz.sha256"
+          sha256sum -c gitsigner.tar.gz.sha256
+          tar -xzf gitsigner.tar.gz
+          sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
+
+      - name: Verify signatures
+        run: |
+          gitsigner --allowed-signers ./.config/allowed_signers \
+                    --format sarif > findings.sarif
+        continue-on-error: true # let the upload step run even on findings
+
+      - name: Upload findings to Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: findings.sarif
+        if: always()
+
+      - name: Re-fail the job on policy violations
+        run: gitsigner --allowed-signers ./.config/allowed_signers
