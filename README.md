@@ -14,10 +14,10 @@ Each release ships archives + SHA-256 checksums for the targets below. Pick the 
 Linux x86_64:
 
 ```bash
-curl -fsSL -o gitsigner.tar.gz https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-x86_64-unknown-linux-gnu.tar.gz
-curl -fsSL -o gitsigner.tar.gz.sha256 https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-x86_64-unknown-linux-gnu.tar.gz.sha256
-sha256sum -c gitsigner.tar.gz.sha256
-tar -xzf gitsigner.tar.gz
+curl -fsSL -O https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-x86_64-unknown-linux-gnu.tar.gz
+curl -fsSL -O https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-x86_64-unknown-linux-gnu.sha256
+sha256sum -c gitsigner-x86_64-unknown-linux-gnu.sha256
+tar -xzf gitsigner-x86_64-unknown-linux-gnu.tar.gz
 sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 gitsigner --version
 ```
@@ -25,10 +25,10 @@ gitsigner --version
 Linux aarch64:
 
 ```bash
-curl -fsSL -o gitsigner.tar.gz https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-aarch64-unknown-linux-gnu.tar.gz
-curl -fsSL -o gitsigner.tar.gz.sha256 https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-aarch64-unknown-linux-gnu.tar.gz.sha256
-sha256sum -c gitsigner.tar.gz.sha256
-tar -xzf gitsigner.tar.gz
+curl -fsSL -O https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-aarch64-unknown-linux-gnu.tar.gz
+curl -fsSL -O https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-aarch64-unknown-linux-gnu.sha256
+sha256sum -c gitsigner-aarch64-unknown-linux-gnu.sha256
+tar -xzf gitsigner-aarch64-unknown-linux-gnu.tar.gz
 sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 gitsigner --version
 ```
@@ -41,10 +41,10 @@ gitsigner --version
 macOS Apple Silicon (aarch64):
 
 ```bash
-curl -fsSL -o gitsigner.tar.gz https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-aarch64-apple-darwin.tar.gz
-curl -fsSL -o gitsigner.tar.gz.sha256 https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-aarch64-apple-darwin.tar.gz.sha256
-shasum -a 256 -c gitsigner.tar.gz.sha256
-tar -xzf gitsigner.tar.gz
+curl -fsSL -O https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-aarch64-apple-darwin.tar.gz
+curl -fsSL -O https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-aarch64-apple-darwin.sha256
+shasum -a 256 -c gitsigner-aarch64-apple-darwin.sha256
+tar -xzf gitsigner-aarch64-apple-darwin.tar.gz
 sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 gitsigner --version
 ```
@@ -52,10 +52,10 @@ gitsigner --version
 macOS Intel (x86_64):
 
 ```bash
-curl -fsSL -o gitsigner.tar.gz https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-x86_64-apple-darwin.tar.gz
-curl -fsSL -o gitsigner.tar.gz.sha256 https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-x86_64-apple-darwin.tar.gz.sha256
-shasum -a 256 -c gitsigner.tar.gz.sha256
-tar -xzf gitsigner.tar.gz
+curl -fsSL -O https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-x86_64-apple-darwin.tar.gz
+curl -fsSL -O https://github.com/deoktr/gitsigner/releases/latest/download/gitsigner-x86_64-apple-darwin.sha256
+shasum -a 256 -c gitsigner-x86_64-apple-darwin.sha256
+tar -xzf gitsigner-x86_64-apple-darwin.tar.gz
 sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 gitsigner --version
 ```
