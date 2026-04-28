@@ -163,9 +163,19 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      # One entry per line. Format: <principal> <key-type> <key-base64> [comment]
+      # see: man 1 ssh-keygen, ALLOWED SIGNERS section
+      ALLOWED_SIGNERS: |
+        alice@example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleAliceKey alice
+        bob@example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleBobKey bob
     steps:
       - uses: actions/checkout@v4
         with:
@@ -181,6 +191,11 @@ jobs:
           tar -xzf gitsigner-x86_64-unknown-linux-gnu.tar.gz
           sudo install -m 0755 gitsigner /usr/local/bin/gitsigner
 
+      - name: Build allowed_signers
+        run: |
+          mkdir -p .config
+          printf '%s\n' "$ALLOWED_SIGNERS" > .config/allowed_signers
+
       - name: Verify signatures
         run: |
           gitsigner --allowed-signers ./.config/allowed_signers \
@@ -188,10 +203,11 @@ jobs:
         continue-on-error: true # let the upload step run even on findings
 
       - name: Upload findings to Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: findings.sarif
-        if: always()
+        # forks cannot upload to Code Scanning, skip on fork PRs
+        if: always() && github.event.pull_request.head.repo.full_name == github.repository
 
       - name: Re-fail the job on policy violations
         run: gitsigner --allowed-signers ./.config/allowed_signers
